@@ -22,53 +22,51 @@ public class car
 	  
    public String addGas() throws InterruptedException
    {  
-	gasInTankLock.lock();
+	gasInTankLock.lock(); //locks gasInTank from other threads
 	try
-	{
+	{      //if the gas is more than 15 will wait before adding gas
 		while(gasInTank>15)
 		{noTankRoom.await();}
-		
+		// add gas in tank and signals that there is now gas in tank
 	    gasInTank = gasInTank + 5;
-		noGas.signalAll();
+		noGas.signalAll();//wakes up all waiting threads
 		return "5 gallons added";
-		
-		
 		}
 	finally
 	{
-		gasInTankLock.unlock();
+		gasInTankLock.unlock(); //unlocks gasInTank to other threads
 	}
    }
 
    
    public String drive() throws InterruptedException   
    {   
-	   gasInTankLock.lock();
+	   gasInTankLock.lock();//locks gasInTank from other threads
 		try
 		{ 
 			while(gasInTank<2)
-			 {noGas.await();}
+			 {noGas.await();}//waits for gas to be added
 			
 		gasInTank = gasInTank - 2;
-		noTankRoom.signalAll();
-      	return "Drove 100 miles";
+		noTankRoom.signalAll();//wakes up all waiting threads
+            return "Drove 100 miles";
 		}
 		
 		finally
 		{
-			gasInTankLock.unlock();
+			gasInTankLock.unlock();//unlocks gasInTank to other threads
 		}
        
    }
 
    
    public double getGas()
-   {   gasInTankLock.lock();
+   {   gasInTankLock.lock();//locks gasInTank from other threads
 	try{ 
       return gasInTank;}
 	finally
 	{
-		gasInTankLock.unlock();
+		gasInTankLock.unlock();//unlocks gasInTank to other threads
 	}
    
    }

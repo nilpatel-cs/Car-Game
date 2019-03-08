@@ -12,7 +12,7 @@ public class drive implements Runnable
 
 	public drive(car aRacecar, double aCount)
 	{
-		raceCar= aRacecar;
+		raceCar= aRacecar;//gets car to reference from parameter
 		count = aCount;
 	}
         @Override

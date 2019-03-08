@@ -11,7 +11,7 @@ public class getGas implements Runnable
 	private final long DELAY = 1;
 	public getGas(car aRacecar, double aCount) 
 		{
-		raceCar= aRacecar;
+		raceCar= aRacecar;//gets car to reference from parameters
 		count = aCount;
 	}
         @Override
